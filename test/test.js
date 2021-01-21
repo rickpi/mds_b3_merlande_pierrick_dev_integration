@@ -67,3 +67,18 @@ describe('POST /colors', () => {
         });
   });
 });
+
+describe('GET /colors', () => {
+  it('should return new color list', (done) => {
+    chai.request(app)
+      .get('/colors')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.an('object');
+        res.body.results.should.be.an('array');
+        res.body.results.should.include(getCurrentColor());
+        done();
+      });
+  });
+});
