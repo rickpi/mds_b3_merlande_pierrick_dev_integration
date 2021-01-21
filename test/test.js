@@ -50,3 +50,20 @@ describe('GET /bad-url', () => {
         });
   });
 });
+
+describe('POST /colors', () => {
+  it('should add new color', (done) => {
+    chai.request(app)
+        .post('/colors')
+        .set('content-type', 'application/json')
+        .send(payloadColor())
+        .end((err, res) => {
+          res.should.have.status(201);
+          res.should.be.json;
+          res.body.should.be.an('object');
+          res.body.results.should.be.an('array');
+          res.body.results.should.include(getCurrentColor());
+          done();
+        });
+  });
+});
