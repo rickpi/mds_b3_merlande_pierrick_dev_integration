@@ -39,3 +39,14 @@ describe('GET /colors', () => {
       });
   });
 });
+
+describe('GET /bad-url', () => {
+  it('should return bad request', (done) => {
+    chai.request(app)
+        .get('/bad-url')
+        .end((err, res) => {
+          res.should.have.status(404);
+          done();
+        });
+  });
+});
